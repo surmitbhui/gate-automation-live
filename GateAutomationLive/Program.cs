@@ -62,7 +62,28 @@ app.MapPost("/api/gate-pass", (CreateGatePassRequest req, GatePassStore store) =
 //
 // See README.md for the full task statement.
 // ============================================================
+app.MapPost("/api/gate-pass/{id:int}/exit", (int id, GatePassStore store) =>
+{
+    var pass = store.GetById(id);
 
+    if (pass is null)
+    {
+        return Results.NotFound(new { error = $"Gate pass {id} not found." });
+    }
+
+    if (!pass.Status.Equals("Active", StringComparison.OrdinalIgnoreCase))
+    {
+        return Results.Conflict(new
+        {
+            error = $"Gate pass {id} cannot be exited because its current status is '{pass.Status}'."
+        });
+    }
+
+    pass.Status = "Exited";
+    pass.ExitTime = DateTime.UtcNow;
+
+    return Results.Ok(pass);
+});
 app.Run();
 
 // ============================================================
