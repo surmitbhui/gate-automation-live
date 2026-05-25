@@ -34,23 +34,31 @@ You can find them in `Program.cs`.
 
 ---
 
-## Your task
+## Task 1 — POST exit endpoint (~5 min)
 
-Add a new endpoint:
+In `Program.cs`, add:
 
 > **`POST /api/gate-pass/{id}/exit`**
 >
-> Marks a gate pass as exited.
-> A gate pass can only be exited if it is currently active.
-> Set the exit time to the current time.
-> Return the updated gate pass.
+> - Marks a gate pass as exited.
+> - Only allowed if the pass is currently `Active`.
+> - Set `ExitTime` to current UTC.
+> - Return the updated pass.
+
+Verify in Swagger.
 
 ---
 
-## What we're looking for
+## Task 2 — RFID consumer (~20-25 min)
 
-- Read the requirement carefully before writing code.
-- Feel free to ask clarifying questions about anything you find ambiguous.
-- Think out loud as you work — we're more interested in how you reason about the problem than in raw typing speed.
+Open `RfidConsumer.cs`. Task statement is in the file header.
 
-You have approximately **25-30 minutes** for this task.
+You'll verify your work by watching gate pass statuses change at `GET /api/gate-pass` while the consumer runs.
+
+---
+
+## Time & expectations
+
+- Total: **30-40 minutes**.
+- Think out loud. Ask clarifying questions whenever something is ambiguous — that's part of what we want to see.
+- Care about correctness and edge cases. Don't worry about polish.
