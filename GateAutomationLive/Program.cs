@@ -23,5 +23,10 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+
+// Send the root URL straight to the Swagger UI so hitting
+// http://localhost:5050 lands on http://localhost:5050/swagger.
+app.MapGet("/", () => Results.Redirect("/swagger"));
+
 app.MapControllers();
 app.Run();
